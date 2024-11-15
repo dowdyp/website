@@ -17,21 +17,16 @@ class CircleGenerator {
     circleMap: Map<UUID, T.Mesh>;
     circleArr: T.Mesh[];
 
-    createCircle(xy: XYPoint) {
-        const geometry = new T.CircleGeometry(
-            circleProperties.radius, 
-            circleProperties.numPolygons
-        );
-        const material = new T.MeshBasicMaterial(circleMaterial);
+    intersectedCircles: T.Intersection<T.Object3D<T.Object3DEventMap>>[] = [];
 
-        const newCircle = new T.Mesh(geometry, material);
-        newCircle.position.set(xy[0], xy[1], circleZIdx)
-        this.circleMap.set(newCircle.uuid, newCircle);
-        this.circleArr.push(newCircle);
-        this.scene.add(newCircle);
-        return newCircle;
+    hasIntersections() {
+        return this.intersectedCircles.length > 0
     }
-    
+
+    handleMouseMove(raycaster: T.Raycaster) {
+        this.intersectedCircles = raycaster.intersectObjects(this.circleArr);
+    }
+
     createCircleV(xy: T.Vector2) {
         const geometry = new T.CircleGeometry(
             circleProperties.radius, 
