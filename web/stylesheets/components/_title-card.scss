@@ -1,0 +1,44 @@
+@use "@style-util/mq";
+
+$header-font-size: 3rem;
+
+.title-card-container {
+    display: flex;
+    flex-direction: column;
+
+    @include mq.mq($from: md) {
+        flex-direction: row;
+    }
+    .name-container {
+        display: flex;
+        flex-direction: column;
+        h2 {
+            margin-bottom: 0;
+            font-weight: 700;
+            font-size: 4rem;
+            color: var(--light-grey);
+            letter-spacing: calc(0.06 * $header-font-size * -1);
+        }
+        svg {
+            width: 100%;
+            path {
+                width: inherit;
+            }
+        }
+    }
+}
+
+.title-property {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-weight: 500;
+    color: var(--white);
+    padding: 0.25rem 0.5rem;
+    line-height: 1.75rem;
+
+    .svg-icon {
+        width: 2rem;
+        height: 2rem;
+    }
+}

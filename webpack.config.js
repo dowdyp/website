@@ -8,9 +8,16 @@ module.exports = {
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist'),
+        publicPath: "/",
     },
     resolve: {
-        extensions: [".tsx", ".ts", ".js"]
+        extensions: [".tsx", ".ts", ".js"],
+        alias: {
+            "@svgs": path.resolve(__dirname, "web/svgs/"),
+            "@util": path.resolve(__dirname, "web/util/"),
+            "@react": path.resolve(__dirname, "web/react/"),
+            "@style-util": path.resolve(__dirname, "web/stylesheets/util/"),
+        }
     },
     module: {
         rules: [{
@@ -19,7 +26,15 @@ module.exports = {
             use: 'babel-loader'
         }, {
             test: /\.(scss|css)$/,
-            use: ['style-loader', 'css-loader', 'sass-loader']
+            use: ['style-loader', 'css-loader', {
+                loader: "sass-loader",
+                options: {
+                    implementation: require("sass")
+                }
+            }],
+        }, {
+            test: /\.svg$/,
+            use: ['@svgr/webpack'],
         }]
     },
     plugins: [

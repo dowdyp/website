@@ -1,0 +1,21 @@
+.svg-icon {
+    height: fit-content;
+    
+    &.lg {
+        width: 3rem;
+        height: 3rem;
+        svg {
+            width: inherit;
+            height: inherit;
+        }
+    }
+
+    &.sm {
+        width: 1.5rem;
+        height: 1.5rem;
+        svg {
+            width: inherit;
+            height: inherit; 
+        }
+    }
+}

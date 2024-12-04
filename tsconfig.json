@@ -1,11 +1,16 @@
 {
     "compilerOptions": {
         "target": "ES6",
-        "jsx": "react",
+        "jsx": "react-jsx",
         "moduleResolution": "Node",
         "outDir": "./dist",
         "strict": true,
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "paths": {
+            "@svgs/*": ["./web/svgs/*"],
+            "@util/*": ["./web/util/*"],
+            "@react/*": ["./web/react/*"],
+        }
     },
     "include": ["web/**/*"]
 }
