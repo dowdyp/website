@@ -1,0 +1,48 @@
+.homepage-chrome {
+    width: 100%;
+    height: 100%;
+    background-color: var(--black-grey);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .homepage-container {
+        padding: 2rem;
+        max-width: 50rem;
+        flex-grow: 1;
+    }
+}
+
+
+$shadow-container-padding: 0.25rem;
+.homepage-content {
+    display: flex;
+    gap: 1rem;
+    padding: 0;
+    box-sizing: border-box;
+
+    .experience {
+        flex-grow: 1;
+        padding: 0 1rem;
+        min-height: fit-content;
+        h2 {
+            margin-bottom: 0.5rem;
+            color: var(--white);
+            font-weight: 500;
+        }
+
+        &-shadow {
+            position: relative;
+            padding: 0 $shadow-container-padding $shadow-container-padding 0;
+            background: var(--gradient-block);
+            border-radius: 0.5rem 0 1rem 0;
+        }
+
+        &-list {
+            min-height: 10rem;
+            background-color: var(--grey);
+            border-radius: 0.25rem 0 0.75rem 0;
+            padding: 1rem;
+        }
+    }
+}

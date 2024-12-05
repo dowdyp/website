@@ -10,6 +10,7 @@
             "@svgs/*": ["./web/svgs/*"],
             "@util/*": ["./web/util/*"],
             "@react/*": ["./web/react/*"],
+            "@static/*": ["./web/static/*"],
         }
     },
     "include": ["web/**/*"]

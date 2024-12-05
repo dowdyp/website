@@ -1,0 +1,36 @@
+.navlink {
+
+    a {
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.75rem 0.625rem;
+        
+        .navlink-text {
+            text-decoration: none;
+            color: var(--white);
+            font-weight: 500;
+            margin-right: 0.5rem;
+        }
+
+        svg {
+            
+            display: none;
+        }
+    }
+
+    a.active svg {
+        vertical-align: middle;
+        display: inline;
+    }
+
+    svg {
+        vertical-align: middle;
+    }
+}
+
+.navlinks {
+    display: block;
+    width: 9rem;
+}

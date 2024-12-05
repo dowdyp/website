@@ -7,6 +7,9 @@ import chevrons from "@svgs/chevrons.svg"
 export const NavigationLink = (props: {
     text: string;
     route: ValidRoutes,
-}) => {
-    return <NavLink className="navlink" to={props.route}>{props.text} <Svg src={chevrons}/></NavLink>
-}
+}) => <div className="navlink">
+    <NavLink to={props.route}>
+        <span className="navlink-text">{props.text}</span>
+        <Svg src={chevrons} />
+    </NavLink>
+</div>

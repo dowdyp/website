@@ -14,9 +14,10 @@ module.exports = {
         extensions: [".tsx", ".ts", ".js"],
         alias: {
             "@svgs": path.resolve(__dirname, "web/svgs/"),
+            "@static": path.resolve(__dirname, "web/static/"),
             "@util": path.resolve(__dirname, "web/util/"),
             "@react": path.resolve(__dirname, "web/react/"),
-            "@style-util": path.resolve(__dirname, "web/stylesheets/util/"),
+            "@styles": path.resolve(__dirname, "web/stylesheets/"),
         }
     },
     module: {
@@ -35,6 +36,9 @@ module.exports = {
         }, {
             test: /\.svg$/,
             use: ['@svgr/webpack'],
+        }, {
+            test: /\.(png|jpg|jpeg)$/,
+            use: ['file-loader']
         }]
     },
     plugins: [

@@ -6,9 +6,13 @@ import { routes } from "../../../router/Router"
 export const HomepageChrome = () => {
     return <div className="homepage-chrome">
         <div className="homepage-container">
-            <TitleCard />
+            <TitleCard showProperties />
             <div className="homepage-content">
-                <NavigationLink text={"Experience"} route={routes.experience} />
+                <div className="navlinks">
+                    <NavigationLink text={"Experience"} route={routes.experience} />
+                    <NavigationLink text={"Publications"} route={routes.experience} />
+                    <NavigationLink text={"Plinko"} route={routes.experience} />
+                </div>
                 <Outlet />
             </div>
         </div>

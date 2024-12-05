@@ -1,17 +1,20 @@
-@use "@style-util/mq";
+@use "@styles/util/mq";
 
 $header-font-size: 3rem;
 
 .title-card-container {
     display: flex;
-    flex-direction: column;
+    margin-bottom: 1rem;
 
-    @include mq.mq($from: md) {
-        flex-direction: row;
+    @include mq.mq($until: md) {
+        gap: 1rem;
+        flex-direction: column;
     }
+
     .name-container {
         display: flex;
         flex-direction: column;
+
         h2 {
             margin-bottom: 0;
             font-weight: 700;
@@ -19,6 +22,7 @@ $header-font-size: 3rem;
             color: var(--light-grey);
             letter-spacing: calc(0.06 * $header-font-size * -1);
         }
+        
         svg {
             width: 100%;
             path {
@@ -28,10 +32,19 @@ $header-font-size: 3rem;
     }
 }
 
+.title-property-container {
+    display: flex;
+    flex-direction: column;
+    @include mq.mq($from: sm, $until: md) {
+        flex-direction: row;
+        gap: 1rem;
+    }
+}
+
 .title-property {
     display: flex;
     align-items: center;
-    gap: 0.25rem;
+    gap: 0.5rem;
     font-weight: 500;
     color: var(--white);
     padding: 0.25rem 0.5rem;

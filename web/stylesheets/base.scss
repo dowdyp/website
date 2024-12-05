@@ -1,11 +1,12 @@
 @use "util/mq" with ($show-breakpoints: ('xs', 'sm', 'md', 'lg'));
 @use "util/colors";
 
-@use "chrome/homepage_chrome";
+@use "chrome/homepage";
 
 @use "components/title-card";
 @use "components/svgs";
 @use "components/navlink";
+@use "components/exp";
 
 h1,
 h2,

@@ -1,4 +1,4 @@
-import { Experience } from "@react/chrome/Experience"
+import { Experience } from "@react/components/experience/Experience"
 import { HomepageChrome } from "@react/components/chrome/HomepageChrome"
 import { BrowserRouter, Route, Routes as RouteBlock } from "react-router-dom"
 

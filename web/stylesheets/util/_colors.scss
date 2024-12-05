@@ -1,9 +1,23 @@
 :root {
     --white: #FFF;
     --black-grey: #1d1d1d;
+    --grey: #373737;
     --light-grey: #efefef;
+    --subheading-grey: #cdcdcd;
     --gradient-color-1: #E76F51;
     --gradient-color-2: #F4A261;
     --gradient-color-3: #E9C46A;
     --gradient-color-4: #2A9D8F;
+
+    --gradient-block: linear-gradient(
+        0deg, 
+        var(--gradient-color-4) 0%, 
+        var(--gradient-color-4) 24%, 
+        var(--gradient-color-3) 25%, 
+        var(--gradient-color-3) 49%, 
+        var(--gradient-color-2) 50%, 
+        var(--gradient-color-2) 74%,  
+        var(--gradient-color-1) 75%,
+        var(--gradient-color-1) 100%
+        ); 
 }
