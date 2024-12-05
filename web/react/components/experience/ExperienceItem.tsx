@@ -1,5 +1,3 @@
-import blLogo from "@static/bondlink-logo.png";
-
 type ExpSEProps = {
     startDate: Date,
     endDate: Date,

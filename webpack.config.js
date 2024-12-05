@@ -1,6 +1,29 @@
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 const path = require("path");
 require('dotenv').config();
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+function bundleAnalyzer(arr, enable) {
+    if (enable) {
+        arr.push(new BundleAnalyzerPlugin({
+            analyzerMode: "static"
+        }));
+    }
+}
+
+function templatePath(arr, path) {
+    arr.push(new HtmlWebpackPlugin({
+        template: path
+    }));
+}
+
+
+const getWebpackPlugins = (options) => {
+    let plugins = [];
+    templatePath(plugins, options.templatePath);
+    bundleAnalyzer(plugins, options.enableBundleAnalyzer)
+    return plugins;
+}
 
 module.exports = {
     mode: process.env.NODE_ENV,
@@ -8,7 +31,6 @@ module.exports = {
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist'),
-        publicPath: "/",
     },
     resolve: {
         extensions: [".tsx", ".ts", ".js"],
@@ -38,12 +60,14 @@ module.exports = {
             use: ['@svgr/webpack'],
         }, {
             test: /\.(png|jpg|jpeg)$/,
-            use: ['file-loader']
+            loader: 'file-loader',
+            options: {
+                outputPath: "static"
+            }
         }]
     },
-    plugins: [
-        new HtmlWebpackPlugin({
-            template: './web/index.html'
-        })
-    ]
+    plugins: getWebpackPlugins({
+        templatePath: "./web/index.html",
+        enableBundleAnalyzer: false
+    })
 }

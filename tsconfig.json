@@ -2,7 +2,7 @@
     "compilerOptions": {
         "target": "ES6",
         "jsx": "react-jsx",
-        "moduleResolution": "Node",
+        "moduleResolution": "node",
         "outDir": "./dist",
         "strict": true,
         "esModuleInterop": true,
@@ -13,5 +13,5 @@
             "@static/*": ["./web/static/*"],
         }
     },
-    "include": ["web/**/*"]
+    "include": ["build/**/*","web/**/*"]
 }
