@@ -2,10 +2,10 @@ require("dotenv").config();
 
 const validateNodeEnv = (s, curr) => {
     if(s === "NODE_ENV"
-        && curr !== "DEV"
-        && curr !== "PROD"
+        && curr !== "development"
+        && curr !== "production"
     ) {
-        throw new Error(`NODE_ENV can only be DEV or PROD. Got: ${curr}`)
+        throw new Error(`NODE_ENV can only be 'development' or 'production'. Got: ${curr}`)
     }
 }
 
