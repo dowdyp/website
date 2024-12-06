@@ -1,7 +1,7 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 const path = require("path");
-require('dotenv').config();
+const { config } = require("./procConfig");
 
 function bundleAnalyzer(arr, enable) {
     if (enable) {
@@ -26,7 +26,7 @@ const getWebpackPlugins = (options) => {
 }
 
 module.exports = {
-    mode: process.env.NODE_ENV,
+    mode: config.nodeEnv,
     entry: './web/index.tsx',
     output: {
         filename: 'bundle.js',
