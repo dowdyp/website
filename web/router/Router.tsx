@@ -16,6 +16,8 @@ export const Router = () => {
       <RouteBlock>
         <Route element={<HomepageChrome />}>
           <Route path={routes.experience} element={<Experience />} />
+          <Route path={routes.publications} element={<Experience />} />
+          <Route path={routes.plinko} element={<Experience />} />
         </Route>
       </RouteBlock>
     </BrowserRouter>

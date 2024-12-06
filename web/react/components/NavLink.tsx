@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom"
 import { ValidRoutes } from "../../router/Router"
-import { Svg } from "@svgs/SvgElem";
+import { Svg } from "@react/components/SvgElem";
 
 import chevrons from "@svgs/chevrons.svg"
 

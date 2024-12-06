@@ -35,7 +35,7 @@ module.exports = {
     resolve: {
         extensions: [".tsx", ".ts", ".js"],
         alias: {
-            "@svgs": path.resolve(__dirname, "web/svgs/"),
+            "@svgs": path.resolve(__dirname, "web/svgs/src/"),
             "@static": path.resolve(__dirname, "web/static/"),
             "@util": path.resolve(__dirname, "web/util/"),
             "@react": path.resolve(__dirname, "web/react/"),

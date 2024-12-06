@@ -1,5 +1,5 @@
 import { TitleProperty } from "./TitleProperty";
-import { Svg } from "@svgs/SvgElem";
+import { Svg } from "@react/components/SvgElem";
 
 import location from "@svgs/location.svg";
 import mail from "@svgs/mail.svg";
@@ -14,7 +14,7 @@ export const TitleCard = (props: {
             <h2 itemProp="name">
                 <span itemProp="givenName">Parker</span> <span itemProp="familyName">Dowdy</span>
             </h2>
-            <Svg src={heroUnderline} />
+            <Svg src={heroUnderline}/>
         </div>
         {props.showProperties && <div className="title-property-container">
             <TitleProperty icon={location} label={"South Portland, ME"} schema="homeLocation"/>

@@ -7,7 +7,7 @@
         "strict": true,
         "esModuleInterop": true,
         "paths": {
-            "@svgs/*": ["./web/svgs/*"],
+            "@svgs/*": ["./web/svgs/src/*"],
             "@util/*": ["./web/util/*"],
             "@react/*": ["./web/react/*"],
             "@static/*": ["./web/static/*"],

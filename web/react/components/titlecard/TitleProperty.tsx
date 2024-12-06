@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { SvgIcon } from "../../../svgs/SvgElem";
+import { SvgIcon } from "@react/components/SvgElem";
 
 export const TitleProperty = (props: {
     icon: SVGString,
@@ -7,7 +7,7 @@ export const TitleProperty = (props: {
     schema?: string,
 }) => {
     return <div className={"title-property"} itemProp={props.schema}>
-        <SvgIcon src={props.icon} small/>
+        <SvgIcon src={props.icon} size="sm"/>
         {props.label}
     </div>;
     }
