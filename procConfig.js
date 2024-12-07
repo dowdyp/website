@@ -1,5 +1,8 @@
 require("dotenv").config();
 
+const isDev = (s) => s === "development";
+const isProd = (s) => s === "production";
+
 const validateNodeEnv = (s, curr) => {
     if(s === "NODE_ENV"
         && curr !== "development"
@@ -26,5 +29,7 @@ const config = {
 }
 
 module.exports = {
-    config
+    config,
+    isDev: isDev(config.nodeEnv),
+    isProd: isProd(config.nodeEnv),
 }

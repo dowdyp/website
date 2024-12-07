@@ -4,6 +4,8 @@ type SVGString = string & {
 }
 
 declare module "*.svg" {
+    const width: number;
+    const height: number;
     const content: SVGString;
     export default content;
 }

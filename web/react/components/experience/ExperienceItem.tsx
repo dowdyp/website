@@ -1,4 +1,5 @@
-import { SvgAnchor } from "@react/components/SvgElem";
+import { Svg, SvgAnchor } from "@react/components/SvgElem";
+import bullet from "@svgs/bullet.svg";
 
 type ExpSEProps = {
     startDate: Date,
@@ -25,12 +26,45 @@ const Technology = (props: TechIconWithRoute) => (
     />
 )
 
+type BulletTechItemProps = {
+    src: SVGString,
+    href: string,
+    title: string,
+}
+const LibraryAnchor = (props: BulletTechItemProps) => {
+    return <a 
+        href={props.href} 
+        target="_blank" 
+        aria-labelledby={props.title} 
+        title={props.title}
+    >
+        <Svg src={props.src} width={20} height={20} />
+        <p className="description">{props.title}</p>
+    </a>
+}
+
+export type BulletPointProps = {
+    description: string;
+    libraries: BulletTechItemProps[];
+}
+const BulletPoint = (props: BulletPointProps) => (
+    <div className="content">
+        <div className="icon">
+            <Svg src={bullet} width={12} height={12}/>
+        </div>
+        <span>{props.description}</span>
+        <div className="libraries">
+            {props.libraries.map((lib) => <LibraryAnchor key={lib.title} {...lib} />)}
+        </div>
+    </div>
+)
+
 export type ExpItem = {
     image: ImageSrc,
     alt: string,
     company: string,
     title: string,
-    bullets: string[],
+    bullets: BulletPointProps[],
     technologies: TechIconWithRoute[]
 } & ExpSEProps;
 
@@ -47,11 +81,11 @@ export const ExperienceItem = (props: {
                 </div>
             </div>
             <div className="exp-technologies">
-                {props.item.technologies.map((t) => <Technology {...t} />)}
+                {props.item.technologies.map((t) => <Technology key={t.title} {...t} />)}
             </div>
         </div>
         <div className="exp-bullets">
-            {props.item.bullets.map((b) => b)}
+            {props.item.bullets.map((b) => <BulletPoint key={b.description} {...b}/>)}
         </div>
     </div>
 )

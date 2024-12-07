@@ -1,6 +1,8 @@
 @use "@styles/util/mq";
+@use "@styles/util/shadow";
 
 .exp-item {
+    margin-bottom: 1rem;
     h3 {
         color: white;
         margin-bottom: 0.5rem;
@@ -19,8 +21,7 @@
         gap: 0.75rem;
         justify-content: space-between;
         flex-direction: row;
-        @include mq.mq($from: sm) {
-        }
+        margin-bottom: 1rem;
     }
 
     .exp-technologies a {
@@ -31,7 +32,7 @@
     }
 
     .exp-job-info {
-        color: var(--light-grey);
+        color: var(--smoke);
         display: flex;
         align-items: center;
 
@@ -44,5 +45,45 @@
             font-size: 0.75rem;
             color: var(--subheading-grey);
         }
+    }
+
+    .exp-bullets {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        .content {
+            list-style: none;
+            color: var(--smoke);
+            font-size: 0.875rem;
+
+            .icon {
+                display: inline;
+                float: left;
+                margin-right: 0.25rem;
+                vertical-align: middle;
+            }
+
+            a {
+                width: fit-content;
+                display: flex;
+                text-decoration: none;
+                border-radius: 0.25rem;
+                overflow: hidden;
+                color: var(--smoke);
+                font-weight: 700;
+                font-size: 0.75rem;
+                @include shadow.drop-shadow();
+                .description {
+                    margin: 0;
+                    padding: 0.125rem 0.25rem;
+                    background-color: var(--light-grey);
+                }
+            }
+
+            .libraries {
+                margin-top: 0.5rem;
+            }
+        }
+
     }
 }

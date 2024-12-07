@@ -1,7 +1,8 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 const path = require("path");
-const { config } = require("./procConfig");
+const { config, isDev, isProd } = require("./procConfig");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 function bundleAnalyzer(arr, enable) {
     if (enable) {
@@ -17,20 +18,36 @@ function templatePath(arr, path) {
     }));
 }
 
+function miniCssExtractPlugin(arr) {
+    arr.push(new MiniCssExtractPlugin({
+        filename: "main.[contenthash].css"
+    }));
+}
 
 const getWebpackPlugins = (options) => {
     let plugins = [];
     templatePath(plugins, options.templatePath);
-    bundleAnalyzer(plugins, options.enableBundleAnalyzer)
+    bundleAnalyzer(plugins, options.enableBundleAnalyzer);
+    miniCssExtractPlugin(plugins);
     return plugins;
 }
+
+console.log("isProd", isProd)
 
 module.exports = {
     mode: config.nodeEnv,
     entry: './web/index.tsx',
     output: {
-        filename: 'bundle.js',
+        filename: 'bundle.[contenthash].js',
         path: path.resolve(__dirname, 'dist'),
+        publicPath: "/",
+    },
+    devServer: {
+        historyApiFallback: true,
+        client: {
+            overlay: false,
+            progress: true,
+        }
     },
     resolve: {
         extensions: [".tsx", ".ts", ".js"],
@@ -49,12 +66,16 @@ module.exports = {
             use: 'babel-loader'
         }, {
             test: /\.(scss|css)$/,
-            use: ['style-loader', 'css-loader', {
-                loader: "sass-loader",
-                options: {
-                    implementation: require("sass")
+            use: [
+                isProd ? MiniCssExtractPlugin.loader : "style-loader", 
+                'css-loader', 
+                {
+                    loader: "sass-loader",
+                    options: {
+                        implementation: require("sass")
+                    }
                 }
-            }],
+            ],
         }, {
             test: /\.svg$/,
             use: ['@svgr/webpack'],
