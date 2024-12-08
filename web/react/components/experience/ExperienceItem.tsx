@@ -38,7 +38,12 @@ const LibraryAnchor = (props: BulletTechItemProps) => {
         aria-labelledby={props.title} 
         title={props.title}
     >
-        <props.src width={20} height={20} />
+        <props.src 
+            aria-label={props.title} 
+            title={props.title} 
+            width={20} 
+            height={20} 
+        />
         <p className="description">{props.title}</p>
     </a>
 }
