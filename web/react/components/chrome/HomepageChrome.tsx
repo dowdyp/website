@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom"
 import { TitleCard } from "../titlecard/TitleCard"
 import { NavigationLink } from "../NavLink"
 import { routes } from "../../../router/Router"
+import { Footer } from "./Footer"
 
 export const HomepageChrome = () => {
     return <div className="homepage-chrome">
@@ -16,8 +17,6 @@ export const HomepageChrome = () => {
                 <Outlet />
             </div>
         </div>
-        <footer>
-            this is a footer
-        </footer>
+        <Footer />
     </div>
 }

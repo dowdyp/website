@@ -1,9 +1,10 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
-const path = require("path");
-const { config, isDev, isProd } = require("./build/procConfig");
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
+const path = require("path");
 const { logger } = require("./build/logger");
+const { config, isProd } = require("./build/procConfig");
 
 function bundleAnalyzer(arr, enable) {
     if (enable) {
@@ -38,8 +39,8 @@ const getWebpackPlugins = (options) => {
     return plugins;
 }
 
+
 logger.info("Is production:", isProd)
-logger.end();
 
 module.exports = {
     mode: config.nodeEnv,
