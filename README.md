@@ -19,3 +19,6 @@ This is the source for my personal website, located @ [dowdyp.net](https://www.d
  - - killing [soft404](https://developers.google.com/search/docs/crawling-indexing/http-network-errors#soft-404-errors) from handling 404 in react-router with wildcard match
  - ssg
  - - is possible for some all pages currently
+
+##### build
+ - change webpack.config to use ts so it can import ts modules
