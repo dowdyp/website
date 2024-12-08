@@ -1,19 +1,15 @@
 import React, { HTMLAttributeAnchorTarget } from "react";
 
 export type SvgProps = {
-    src: SVGString;
+    src: SvgElement;
     size: "sm" | "md" | "lg"
 }
 
 export const SvgIcon = (props: SvgProps) => (
     <div className={`svg-icon svg-${props.size}`}>
-        {React.createElement(props.src, props)}
+        <props.src />
     </div>
 )
-export const Svg = (props: Omit<SvgProps, "size"> & {
-    width?: number,
-    height?: number,
-}) => React.createElement(props.src, props);
 
 export const SvgAnchor = (props: SvgProps & {
     href: string;
@@ -26,5 +22,5 @@ export const SvgAnchor = (props: SvgProps & {
     target={props.target}
     className={`svg-icon svg-${props.size}`}
 >
-    {React.createElement(props.src, props)}
+    <props.src />
 </a>

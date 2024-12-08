@@ -1,11 +1,6 @@
-declare const __brand: unique symbol;
-type SVGString = string & {
-    [__brand]: "SVGString"
-}
+type SvgElement = React.FunctionComponent<React.SVGProps<SVGSVGElement>>
 
 declare module "*.svg" {
-    const width: number;
-    const height: number;
-    const content: SVGString;
-    export default content;
+    const ReactComponent: SvgElement
+    export default ReactComponent;
 }

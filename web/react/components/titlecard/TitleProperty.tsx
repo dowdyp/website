@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import { SvgIcon } from "@react/components/SvgElem";
 
 export const TitleProperty = (props: {
-    icon: SVGString,
+    icon: SvgElement,
     label: ReactNode,
     schema?: string,
 }) => {

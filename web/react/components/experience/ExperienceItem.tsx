@@ -1,5 +1,5 @@
-import { Svg, SvgAnchor } from "@react/components/SvgElem";
-import bullet from "@svgs/bullet.svg";
+import { SvgAnchor } from "@react/components/SvgElem";
+import Bullet from "@svgs/bullet.svg";
 
 type ExpSEProps = {
     startDate: Date,
@@ -13,7 +13,7 @@ const ExperienceStartAndEnd = (props: ExpSEProps) =>
     <span className="start-and-end">{getMonthName(props.startDate)} {props.startDate.getFullYear()} to {getMonthName(props.endDate)} {props.endDate.getFullYear()}</span>
 
 type TechIconWithRoute = {
-    src: SVGString,
+    src: SvgElement,
     href: string;
     title: string;
 }
@@ -27,7 +27,7 @@ const Technology = (props: TechIconWithRoute) => (
 )
 
 type BulletTechItemProps = {
-    src: SVGString,
+    src: SvgElement,
     href: string,
     title: string,
 }
@@ -38,7 +38,7 @@ const LibraryAnchor = (props: BulletTechItemProps) => {
         aria-labelledby={props.title} 
         title={props.title}
     >
-        <Svg src={props.src} width={20} height={20} />
+        <props.src width={20} height={20} />
         <p className="description">{props.title}</p>
     </a>
 }
@@ -50,7 +50,7 @@ export type BulletPointProps = {
 const BulletPoint = (props: BulletPointProps) => (
     <div className="content">
         <div className="icon">
-            <Svg src={bullet} width={12} height={12}/>
+            <Bullet width={12} height={12} />
         </div>
         <span>{props.description}</span>
         <div className="libraries">

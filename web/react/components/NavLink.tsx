@@ -1,8 +1,7 @@
 import { NavLink } from "react-router-dom"
 import { ValidRoutes } from "../../router/Router"
-import { Svg } from "@react/components/SvgElem";
 
-import chevrons from "@svgs/chevrons.svg"
+import Chevrons from "@svgs/chevrons.svg"
 
 export const NavigationLink = (props: {
     text: string;
@@ -10,6 +9,6 @@ export const NavigationLink = (props: {
 }) => <div className="navlink">
     <NavLink to={props.route}>
         <span className="navlink-text">{props.text}</span>
-        <Svg src={chevrons} />
+        <Chevrons />
     </NavLink>
 </div>

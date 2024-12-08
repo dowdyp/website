@@ -52,6 +52,9 @@ module.exports = {
     },
     devServer: {
         historyApiFallback: true,
+        static: {
+            directory: path.resolve(__dirname, "web"),
+        }
     },
     resolve: {
         extensions: [".tsx", ".ts", ".js"],
