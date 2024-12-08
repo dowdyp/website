@@ -12,9 +12,14 @@ function bundleAnalyzer(arr, enable) {
     }
 }
 
-function templatePath(arr, path) {
+function htmlWebpackPlugin(arr, path) {
     arr.push(new HtmlWebpackPlugin({
-        template: path
+        template: path,
+        meta: {
+            charset: "utf-8",
+            viewport: "width=device-width; initial-scale=1",
+            description: `Parker Dowdy - experience, ramblings, and more(eventually)`
+        }
     }));
 }
 
@@ -26,7 +31,7 @@ function miniCssExtractPlugin(arr) {
 
 const getWebpackPlugins = (options) => {
     let plugins = [];
-    templatePath(plugins, options.templatePath);
+    htmlWebpackPlugin(plugins, options.templatePath);
     bundleAnalyzer(plugins, options.enableBundleAnalyzer);
     miniCssExtractPlugin(plugins);
     return plugins;
