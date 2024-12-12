@@ -79,7 +79,7 @@ export const ExperienceItem = (props: {
     <div className="exp-item">
         <div className="exp-item-heading">
             <div className="exp-job-info">
-                <img src={props.item.image} />
+                <img alt={props.item.alt} src={props.item.image} />
                 <div>
                     <h4 className="title">{props.item.title}</h4>
                     <ExperienceStartAndEnd startDate={props.item.startDate} endDate={props.item.endDate} />
