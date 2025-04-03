@@ -64,6 +64,7 @@ module.exports = {
             "@util": path.resolve(__dirname, "web/util/"),
             "@react": path.resolve(__dirname, "web/react/"),
             "@styles": path.resolve(__dirname, "web/stylesheets/"),
+            "@ml": path.resolve(__dirname, "web/ml/")
         }
     },
     module: {

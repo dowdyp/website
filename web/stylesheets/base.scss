@@ -1,4 +1,4 @@
-// @use "util/mq" with ($show-breakpoints: ('xs', 'sm', 'md', 'lg'));
+@use "util/mq" with ($show-breakpoints: ('xs', 'sm', 'md', 'lg'));
 @use "util/colors";
 
 @use "chrome/homepage";
@@ -7,6 +7,7 @@
 @use "components/svgs";
 @use "components/navlink";
 @use "components/experience";
+@use "components/ramblings";
 @use "components/footer";
 
 h1,

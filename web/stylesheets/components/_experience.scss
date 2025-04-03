@@ -1,6 +1,31 @@
 @use "@styles/util/mq";
 @use "@styles/util/shadow";
 
+$shadow-container-padding: 0.25rem;
+
+.experience {
+    @include mq.mq($from: sm) {
+        padding: 0 1rem;
+    }
+    h2 {
+        margin-bottom: 0.5rem;
+        color: var(--white);
+        font-weight: 500;
+    }
+
+    &-shadow {
+        padding: 0 $shadow-container-padding $shadow-container-padding 0;
+        background: var(--gradient-block);
+        border-radius: 0.5rem 0 1rem 0;
+    }
+
+    &-list {
+        background-color: var(--grey);
+        border-radius: 0.25rem 0 0.75rem 0;
+        padding: 1rem;
+    }
+}
+
 .exp-item {
     margin-bottom: 1rem;
     h3 {

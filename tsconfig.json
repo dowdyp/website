@@ -11,6 +11,7 @@
             "@util/*": ["./web/util/*"],
             "@react/*": ["./web/react/*"],
             "@static/*": ["./static/*"],
+            "@ml/*": ["./web/ml/*"]
         }
     },
     "include": ["build/**/*","web/**/*", "static"]

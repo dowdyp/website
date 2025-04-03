@@ -11,8 +11,8 @@ export const HomepageChrome = () => {
             <div className="homepage-content">
                 <div className="navlinks">
                     <NavigationLink text={"Experience"} route={routes.experience} />
-                    {/* <NavigationLink text={"Publications"} route={routes.publications} />
-                    <NavigationLink text={"Plinko"} route={routes.plinko} /> */}
+                    <NavigationLink text={"Ramblings"} route={routes.ramblings} />
+                    <NavigationLink text={"Data Stuff"} route={routes.plinko} />
                 </div>
                 <Outlet />
             </div>
