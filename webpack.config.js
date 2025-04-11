@@ -45,6 +45,7 @@ logger.info("Is production:", isProd)
 module.exports = {
     mode: config.nodeEnv,
     entry: './web/index.tsx',
+    devtool: "source-map",
     output: {
         filename: 'bundle.[contenthash].js',
         path: path.resolve(__dirname, 'dist'),

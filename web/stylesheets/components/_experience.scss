@@ -4,15 +4,6 @@
 $shadow-container-padding: 0.25rem;
 
 .experience {
-    @include mq.mq($from: sm) {
-        padding: 0 1rem;
-    }
-    h2 {
-        margin-bottom: 0.5rem;
-        color: var(--white);
-        font-weight: 500;
-    }
-
     &-shadow {
         padding: 0 $shadow-container-padding $shadow-container-padding 0;
         background: var(--gradient-block);
@@ -28,10 +19,10 @@ $shadow-container-padding: 0.25rem;
 
 .exp-item {
     margin-bottom: 1rem;
+    
     h3 {
         color: white;
         margin-bottom: 0.5rem;
-
     }
 
     img {

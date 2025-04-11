@@ -50,7 +50,6 @@ const experience: ReadonlyArray<ExpItem> = [{
 
 export const Experience = () => {
     return <div className="experience">
-        <h2>Experience</h2>
         <div className="experience-shadow">
             <div className="experience-list">
                 {experience.map((exp) => <ExperienceItem key={exp.company} item={exp} />)}

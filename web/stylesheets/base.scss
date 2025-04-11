@@ -1,3 +1,5 @@
+@use "./reset.scss";
+
 @use "util/mq" with ($show-breakpoints: ('xs', 'sm', 'md', 'lg'));
 @use "util/colors";
 
@@ -10,17 +12,14 @@
 @use "components/ramblings";
 @use "components/footer";
 
-h1,
-h2,
-h3,
-h4,
-h5 {
-  margin-top: 0;
-}
-
 html {
   height: 100%;
   font-family: "IBM Plex Sans", sans-serif;
+  font-size: 14px;
+  @include mq.mq($from: md) {
+    font-size: 16px;
+  }
+
 }
 
 body {

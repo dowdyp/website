@@ -1,8 +1,9 @@
 {
     "compilerOptions": {
-        "target": "ES6",
+        "target": "es5",
         "jsx": "react-jsx",
-        "moduleResolution": "node",
+        "module": "ESNext",
+        "moduleResolution": "bundler",
         "outDir": "./dist",
         "strict": true,
         "esModuleInterop": true,
