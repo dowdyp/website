@@ -31,12 +31,32 @@ const getDefaultExtent = (a: Axes) => {
     }
 }
 
-export const useCartesianScale = (data: Tuple<number>[], range: Iterable<number>, axis: Axes) => {
-    const scaleExtent: Extent = useMemo(() => tryGetExtent(extent(data, getGetter(axis)), getDefaultExtent(axis)), [data])
-    const scale = useMemo(() => scaleLinear(scaleExtent, range), [data]);
+export const useCartesianScale = (data: Tuple<number>[], width: number, height: number, padding: ChartPadding) => {
+    const xRange = [padding.left, width - padding.right];
+    const yRange = [height - padding.bottom, padding.top]
 
-    return [scaleExtent, scale] as const
+    const scaleXExtent: Extent = useMemo(() => tryGetExtent(extent(data, getXFromTuple), getDefaultExtent("x")), [data]);
+    const scaleYExtent: Extent = useMemo(() => tryGetExtent(extent(data, getYFromTuple), getDefaultExtent("y")), [data]);
+
+    const scaleX = useMemo(() => scaleLinear(scaleXExtent, xRange), [scaleXExtent, xRange]);
+    const scaleY = useMemo(() => scaleLinear(scaleYExtent, yRange), [scaleYExtent, yRange]);
+
+    return [
+        {
+            scaleXExtent,
+            scaleX,
+        }, {
+            scaleYExtent,
+            scaleY,
+        }
+    ] as const
 }
 
 type Extent = Tuple<number>
 type Axes = "x" | "y";
+type ChartPadding = {
+    top: number,
+    right: number,
+    bottom: number,
+    left: number,
+}

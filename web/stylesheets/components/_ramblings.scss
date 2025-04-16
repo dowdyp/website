@@ -1,4 +1,4 @@
-@use "../util/shadow";
+@use "util";
 
 .publication-card-container {
     display: flex;
@@ -18,14 +18,9 @@
         margin-bottom: 0.5rem;
     }
 
-    .trunc-desc {
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
+    .description-blurb {
+        @include util.clamp(2);
         font-size: 0.875rem;
-        color: var(--grey-700);
-        line-clamp: 2;
-        -webkit-line-clamp: 2;
-        overflow: hidden;
     }
 
     &:hover {

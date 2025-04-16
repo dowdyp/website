@@ -1,7 +1,6 @@
 @use "./reset.scss";
 
 @use "util/mq" with ($show-breakpoints: ('xs', 'sm', 'md', 'lg'));
-@use "util/colors";
 
 @use "chrome/homepage";
 
@@ -11,6 +10,8 @@
 @use "components/experience";
 @use "components/ramblings";
 @use "components/footer";
+@use "components/data";
+@use "components/content-container";
 
 html {
   height: 100%;
@@ -19,7 +20,6 @@ html {
   @include mq.mq($from: md) {
     font-size: 16px;
   }
-
 }
 
 body {

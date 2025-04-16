@@ -8,7 +8,7 @@ export const Ramblings = () => {
       <div className="publication-card-container">
         {links.map(({ title, shortContent }) => <div className={"publication-card"}>
           <h3>{title}</h3>
-          <p className={"trunc-desc"}>
+          <p className={"description-blurb"}>
             {shortContent}
           </p>
         </div>)}
