@@ -62,17 +62,16 @@ class LinearRegression extends WithErrorAndWarning {
 
     _weightSlopePartial = (xVal: number, yVal: number) => xVal * (this.predict(xVal) - yVal) 
 
-    getBiasSlopeAtPoint = (xVal: number, yVal: number) => (this.predict(xVal) - yVal)
+    _biasSlopePartial = (xVal: number, yVal: number) => (this.predict(xVal) - yVal)
 
     _getSlope = (fn: (xVal: number, yVal: number) => number) => 
-        (2 / this.scaledPoints.length) 
-            * this.scaledPoints
+        (2 / this.scaledPoints.length) * this.scaledPoints
             .map(([x, y]) => fn(x, y))
             .reduce((a, b) => a + b, 0); 
 
     updateWeightAndBias() {
         const weightSlope = this._getSlope(this._weightSlopePartial)
-        const biasSlope = this._getSlope(this.getBiasSlopeAtPoint)
+        const biasSlope = this._getSlope(this._biasSlopePartial)
 
         if(isNaN(weightSlope) || isNaN(biasSlope)) {
             this.addError("Weight or bias slope is NaN, try a lower training rate");
