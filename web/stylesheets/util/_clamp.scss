@@ -3,7 +3,6 @@ $numLines: 1, 2, 3;
 @mixin clamp($numLines) {
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    color: var(--grey-700);
     line-clamp: $numLines;
     -webkit-line-clamp: $numLines;
     overflow: hidden;
@@ -13,7 +12,6 @@ $numLines: 1, 2, 3;
     .clamp-#{$line} {
         display: -webkit-box;
         -webkit-box-orient: vertical;
-        color: var(--grey-700);
         line-clamp: $line;
         -webkit-line-clamp: $line;
         overflow: hidden;

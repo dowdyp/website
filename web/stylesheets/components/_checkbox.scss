@@ -1,0 +1,21 @@
+.form-checkbox {
+    display: flex;
+    color: var(--white);
+    input[type=checkbox] {
+        appearance: none;
+        width: 1.25rem;
+        height: 1.25rem;
+        border: solid 0.125rem var(--grey-500);
+        border-radius: 0.25rem;
+        // transform: translateY(0.5rem);
+        background-color: var(--grey-900);
+        transition: all 0.1s;
+        margin: 0 0.25rem 0 0;
+
+        &:hover {
+            border-color: var(--grey-600);
+            background-color: var(--white);
+        }
+    }
+
+}

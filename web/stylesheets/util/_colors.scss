@@ -1,5 +1,4 @@
 :root {
-    --white: #FFF;
     --dark-grey: #1d1d1d;
     --dark-grey-hover: #1e1e1e;
     --grey: #373737;
@@ -12,8 +11,8 @@
 
     --success-light: #42b24f;
     --success-dark: #267808;
-    --failure-light: #ff000035;
-    --failure-dark: #c10000;
+    --error-light: #ff000035;
+    --error-dark: #c10000;
     --warning-light: #d0b417;
     --warning-dark: #a89c00;
     
@@ -27,8 +26,8 @@
     --grey-700: #A8A8A8;
     --grey-800: #C0C0C0;
     --grey-900: #D8D8D8;
-    --white:    #FFFFFF;
     --smoke:    #efefef;
+    --white:    #FFFFFF;
 
     --gradient-block: linear-gradient(
         0deg, 
@@ -40,5 +39,5 @@
         var(--gradient-color-2) 74%,  
         var(--gradient-color-1) 75%,
         var(--gradient-color-1) 100%
-        ); 
+    ); 
 }

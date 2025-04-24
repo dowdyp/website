@@ -1,5 +1,6 @@
-import { Lazy } from "@util/Arb";
-import { ChangeEvent, MouseEventHandler, useCallback, useState } from "react";
+import { SvgIcon } from "@react/components/SvgElem";
+import { ChangeEvent, useCallback, useState } from "react";
+import plus from "@svgs/plus.svg";
 
 type Coordinates = {
     x: string,
@@ -39,9 +40,9 @@ export const XYInput = (props: {
         props.onClick(newCoordinate)
     }
 
-    return (<>
+    return (<div className="xy-input">
         <input placeholder={"X"} value={coords?.x} onChange={onChange(setX)}/>
         <input placeholder={"Y"} value={coords?.y} onChange={onChange(setY)}/>
-        <button onClick={handleClick}>add point</button>
-    </>)
+        <button onClick={handleClick}><SvgIcon src={plus} size="xs"/></button>
+    </div>)
 }

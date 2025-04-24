@@ -4,14 +4,16 @@
 
 @use "chrome/homepage";
 
-@use "components/title-card";
-@use "components/svgs";
-@use "components/navlink";
-@use "components/experience";
-@use "components/ramblings";
-@use "components/footer";
-@use "components/data";
+@use "components/checkbox";
 @use "components/content-container";
+@use "components/data";
+@use "components/experience";
+@use "components/footer";
+@use "components/navlink";
+@use "components/ramblings";
+@use "components/svgs";
+@use "components/title-card";
+@use "components/data-utilities";
 
 html {
   height: 100%;

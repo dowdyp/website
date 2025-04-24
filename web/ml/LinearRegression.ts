@@ -1,49 +1,39 @@
 import { Tuple } from "@util/Arb";
 
-interface Hyperparameters {
+export interface Hyperparameters {
     learningRate: number
     iterations: number
 }
 
-
-class LRArgumentError extends Error {}
-export class LRTrainError extends Error {}
-
-class WithErrorAndWarning {
-    hasError: boolean = false;
+export class WithErrorAndWarning {
     errorMessage?: string;
 
-    addError(message: string) {
-        this.hasError = true;
+    setError(message: string) {
         this.errorMessage = message;
     }
 
     clearError() {
-        this.hasError = false;
         delete this.errorMessage
     }
 
-    hasWarning: boolean = false;
     warningMessage?: string;
 
     setWarning(message: string) {
-        this.hasWarning = true;
         this.warningMessage = message;
     }
 
     clearWarning() {
-        this.hasWarning = false;
         delete this.warningMessage
     }
 }
 
-class LinearRegression extends WithErrorAndWarning {
-    inputPoints: Tuple<number>[];  // initial data points provided
-    scaledPoints: Tuple<number>[]; // data points to be operated upon
-    extent?: Tuple<number>;
+export class LinearRegression extends WithErrorAndWarning {
+    private providedData: Tuple<number>[];  // initial data points provided
+    data: Tuple<number>[]; // data points to be operated upon
     
     _weight: number = 0;
     _bias: number = 0;
+
     _learningRate: number;
     setLearningRate(updatedNudge: number) {
         this._learningRate = updatedNudge;
@@ -56,66 +46,84 @@ class LinearRegression extends WithErrorAndWarning {
     // Predicts the y value for a given x value based on current weigh and bias
     predict = (independant: number) => this._weight * independant + this._bias;
 
-    calcMSE = (): number => this.scaledPoints.reduce(
+    /**
+     * Calculate the mean squared error for all data points
+     * @returns {number} Mean squared error for all datum
+     */
+    calcMSE = (): number => this.data.reduce(
         (acc: number, [x, y]: Tuple<number>) => acc + Math.pow(y - this.predict(x), 2), 0
-    ) / this.scaledPoints.length;
+    ) / this.data.length;
 
     _weightSlopePartial = (xVal: number, yVal: number) => xVal * (this.predict(xVal) - yVal) 
 
-    _biasSlopePartial = (xVal: number, yVal: number) => (this.predict(xVal) - yVal)
+    _biasSlopePartial = (xVal: number, yVal: number) => this.predict(xVal) - yVal
 
     _getSlope = (fn: (xVal: number, yVal: number) => number) => 
-        (2 / this.scaledPoints.length) * this.scaledPoints
+        (2 / this.data.length) * this.data
             .map(([x, y]) => fn(x, y))
             .reduce((a, b) => a + b, 0); 
 
-    updateWeightAndBias() {
+    /**
+     * Completes one iteration of training, then returns whether that iteration was successful
+     * @returns {boolean} whether to continue training
+     * @todo Implement chaos detection to prevent computation when results start to diverge
+     * signaling a problem with learning rate
+     */
+    updateWeightAndBias = (): boolean => {
         const weightSlope = this._getSlope(this._weightSlopePartial)
         const biasSlope = this._getSlope(this._biasSlopePartial)
 
         if(isNaN(weightSlope) || isNaN(biasSlope)) {
-            this.addError("Weight or bias slope is NaN, try a lower training rate");
-            throw new LRTrainError("Bias slope is NaN, try a lower training rate");
+            this.setWarning("Weight or bias slope is NaN, try a lower training rate");
+            return false;
         }
         
         this._weight = this._weight - (this._learningRate * weightSlope)
         this._bias = this._bias - (this._learningRate * biasSlope)
+        
+        return true;
     }
 
-    train(breakOnIteration?: number) {
-        const iterMax = breakOnIteration ? Math.min(breakOnIteration, this._iterations) : this._iterations;
-        for(let i = 0; i < iterMax; i++) {
-            try {
-                this.updateWeightAndBias();
-            } catch(e) {
+    train = () => {
+        if(this.errorMessage || this.warningMessage) return this;
+        for(let i = 0; i < this._iterations; i++) {
+            if(!this.updateWeightAndBias()) {
                 console.log(`Training halted early on iteration ${i}`)
                 break;
             }
-            // this.calcMSE();
         }
         return this;
     }
 
-    clear() {
+    clear = () => {
         this._weight = 0;
         this._bias = 0;
     }
 
-    toString() {
-        return `Weight: ${this._weight}\nBias: ${this._bias}\nNudge amount: ${this._learningRate}`;
-    }
+    toString = () => (
+       `Weight: ${this._weight}\n
+        Bias: ${this._bias}\n
+        Prediction formula: y=${this._weight}x + ${this._bias}\n
+        Nudge amount: ${this._learningRate}`
+    )
 
-    // @param points [x, y] tuple
-    constructor(points: Tuple<number>[], params: Hyperparameters) {
+    constructor(points: Tuple<number>[], params: Hyperparameters, normalizeFn?: NormalizeFn) {
         super();
-        this.inputPoints = points;
-        this.scaledPoints = points.slice();
-        this._learningRate = params.learningRate
-        this._iterations = params.iterations
+        this._learningRate = params.learningRate;
+        this._iterations = params.iterations;
+        this.providedData = points;
+
+        this.data = normalize[normalizeFn ?? "none"](this.providedData);
+
+        if(points.length < 2) this.setError("There must be at least two points to calculate the line of best fit");
     }
 }
 
-export {
-    Hyperparameters,
-    LinearRegression
+const normalize: Record<string, (d: Tuple<number>[]) => Tuple<number>[]> = {
+    none: (data) => data,
+    unit: (data) => {
+        const max = data.reduce((a, [, y]) => Math.max(a, y), 0)
+        return data.map(([x, y]) => [x, y / max])
+    }
 }
+export type NormalizeFn = keyof typeof normalize;

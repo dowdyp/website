@@ -1,8 +1,46 @@
-.train-err {
+.model-status {
     color: white;
     padding: 0.5rem;
-    background-color: var(--failure-light);
-    border-left: solid 0.5rem var(--failure-dark);
+    &__error {
+        background-color: var(--error-light);
+        border-left: solid 0.5rem var(--error-dark);
+    }
+    &__warning {
+        background-color: var(--warning-light);
+        border-left: solid 0.5rem var(--warning-dark);
+    }
+}
+
+.data-explorer {
+    margin: 0 1rem;
+    width: fit-content;
+    color: var(--grey-700);
+    display: flex;
+    border-left: solid 0.5rem var(--grey-400);
+    background-color: var(--grey-200);
+    padding: 0.5rem;
+    cursor: pointer;
+
+    &__list__item { 
+        margin: 0;
+        white-space: nowrap;
+        display: inline-block;
+        &:not(:last-of-type)::after {
+            content: ",";
+            margin-right: 0.25rem;
+        }
+    }
+
+    &::before {
+        content: "\25B8 Array["; 
+    }
+    &::after {
+        content: "]";
+    }
+
+    &.expanded::before {
+        content: "\25BE Array["
+    }
 }
 
 .chart-container {

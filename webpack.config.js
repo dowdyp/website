@@ -20,7 +20,7 @@ function htmlWebpackPlugin(arr, path) {
         meta: {
             charset: "utf-8",
             viewport: "width=device-width; initial-scale=1",
-            description: `Parker Dowdy - experience, ramblings, and more(eventually)`
+            description: `ramblings and more(eventually)`
         }
     }));
 }
