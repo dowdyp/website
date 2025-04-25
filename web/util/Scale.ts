@@ -33,28 +33,26 @@ const getDefaultExtent = (a: Axes) => {
 
 export const useCartesianScale = (data: Tuple<number>[], width: number, height: number, padding: ChartPadding) => {
     const xRange = [padding.left, width - padding.right];
-    const yRange = [height - padding.bottom, padding.top]
+    const yRange = [height - padding.bottom, padding.top];
 
-    const scaleXExtent: Extent = useMemo(() => tryGetExtent(extent(data, getXFromTuple), getDefaultExtent("x")), [data]);
-    const scaleYExtent: Extent = useMemo(() => tryGetExtent(extent(data, getYFromTuple), getDefaultExtent("y")), [data]);
+    const scaleXExtent: Extent = tryGetExtent(extent(data, getXFromTuple), getDefaultExtent("x"))
+    const scaleYExtent: Extent = tryGetExtent(extent(data, getYFromTuple), getDefaultExtent("y"))
 
-    const scaleX = useMemo(() => scaleLinear(scaleXExtent, xRange), [scaleXExtent, xRange]);
-    const scaleY = useMemo(() => scaleLinear(scaleYExtent, yRange), [scaleYExtent, yRange]);
+    const scaleX = scaleLinear(scaleXExtent, xRange);
+    const scaleY = scaleLinear(scaleYExtent, yRange)
 
-    return [
-        {
-            scaleXExtent,
-            scaleX,
+    return [{
+            scale: scaleX,
+            extent: scaleXExtent
         }, {
-            scaleYExtent,
-            scaleY,
-        }
-    ] as const
+            scale: scaleY,
+            extent: scaleYExtent
+        }] as const
 }
 
 type Extent = Tuple<number>
 type Axes = "x" | "y";
-type ChartPadding = {
+export type ChartPadding = {
     top: number,
     right: number,
     bottom: number,

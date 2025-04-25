@@ -28,8 +28,9 @@ export class WithErrorAndWarning {
 }
 
 export class LinearRegression extends WithErrorAndWarning {
-    private providedData: Tuple<number>[];  // initial data points provided
+    providedData: Tuple<number>[];  // initial data points provided
     data: Tuple<number>[]; // data points to be operated upon
+    normalized = false;
     
     _weight: number = 0;
     _bias: number = 0;
@@ -95,11 +96,6 @@ export class LinearRegression extends WithErrorAndWarning {
         return this;
     }
 
-    clear = () => {
-        this._weight = 0;
-        this._bias = 0;
-    }
-
     toString = () => (
        `Weight: ${this._weight}\n
         Bias: ${this._bias}\n
@@ -113,17 +109,22 @@ export class LinearRegression extends WithErrorAndWarning {
         this._iterations = params.iterations;
         this.providedData = points;
 
+        this.normalized = normalizeFn ? true : false;
         this.data = normalize[normalizeFn ?? "none"](this.providedData);
 
         if(points.length < 2) this.setError("There must be at least two points to calculate the line of best fit");
     }
 }
 
-const normalize: Record<string, (d: Tuple<number>[]) => Tuple<number>[]> = {
+const normalize = {
     none: (data) => data,
     unit: (data) => {
-        const max = data.reduce((a, [, y]) => Math.max(a, y), 0)
-        return data.map(([x, y]) => [x, y / max])
+        const max = data.reduce((a, [x, y]) => {
+            a[0] = Math.max(a[0], x);
+            a[1] = Math.max(a[1], y)
+            return a;
+        }, [0, 0])
+        return data.map(([x, y]) => [x / max[0], y / max[1]])
     }
-}
+} satisfies Record<string, (d: Tuple<number>[]) => Tuple<number>[]>;
 export type NormalizeFn = keyof typeof normalize;

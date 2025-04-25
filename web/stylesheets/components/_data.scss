@@ -2,12 +2,12 @@
     color: white;
     padding: 0.5rem;
     &__error {
-        background-color: var(--error-light);
-        border-left: solid 0.5rem var(--error-dark);
+        background-color: var(--error-dark);
+        border-left: solid 0.5rem var(--error-light);
     }
     &__warning {
-        background-color: var(--warning-light);
-        border-left: solid 0.5rem var(--warning-dark);
+        background-color: var(--warning-dark);
+        border-left: solid 0.5rem var(--warning-light);
     }
 }
 

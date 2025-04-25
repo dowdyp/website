@@ -4,7 +4,7 @@ import { LinearRegression, Hyperparameters, NormalizeFn } from "@ml/LinearRegres
 import { Tuple } from "@util/Arb";
 import { XYInput } from "./XYInput";
 import { Coordinate, useMutableChartData } from "@util/useChartData";
-import { useCartesianScale } from "@util/Scale";
+import { ChartPadding, useCartesianScale } from "@util/Scale";
 import { HyperSlider } from "./HyperparameterSlider";
 import { ContentContainer } from "@react/components/chrome/ContentContainer";
 import remToPx from "@util/remToPx";
@@ -13,41 +13,51 @@ import { ModelErrorAndWarning } from "@react/components/data/ModelError";
 import { DataExplorer } from "@react/components/data/DataExplorer";
 import { ChartContainer } from "@react/components/data/ChartContainer";
 import { Checkbox } from "@react/components/Checkbox";
+import { useLinearRegression, useModelNormalization } from "@ml/hooks/useLinearRegression";
 
 const chartPadding = {
     left: remToPx(1), 
     right: remToPx(1), 
     bottom: 30, 
     top: 10
-} as const
+} as const satisfies ChartPadding;
 
 const LinearRegressionChart = (props: {
     data: Tuple<number>[];
     onClick: (c: Coordinate) => void;
     width: number;
     height: number;
-    normalize?: NormalizeFn
+    normalized: boolean
 }) => {
     const [hypers, setHypers] = useState<Hyperparameters>({
         learningRate: 0.01,
         iterations: 10
     });
     const hypersDeferred = useDeferredValue(hypers);
-    const model = useMemo(
-        () => new LinearRegression(props.data, hypersDeferred, props.normalize).train(), 
-        [props.data, hypersDeferred, props.normalize]
+    const [model] = useLinearRegression({
+        data: props.data, 
+        hyperparameters: hypersDeferred, 
+        normalized: props.normalized
+    });
+
+    const {
+        x,
+        y,
+        coordsFromEvent
+    } = useModelNormalization({
+        model,
+        width: props.width,
+        height: props.height,
+        normalized: props.normalized,
+        padding: chartPadding
+    })
+
+    const lineOfBestFit = d3.line<number>(x.scale, (d) => y.scale(model.predict(d)));
+
+    const handleClick = useCallback(
+        (e: React.MouseEvent<SVGElement>) => props.onClick(coordsFromEvent(e)),
+        [props.onClick, coordsFromEvent]
     );
-    const [
-        { scaleXExtent, scaleX },
-        { scaleYExtent, scaleY }
-    ] = useCartesianScale(model.data, props.width, props.height, chartPadding);
-
-    const lineOfBestFit = d3.line<number>(scaleX, (d) => scaleY(model.predict(d)));
-
-    const handleClick = useCallback((e: React.MouseEvent<SVGElement>) => props.onClick([
-        scaleX.invert(e.nativeEvent.offsetX),
-        scaleY.invert(e.nativeEvent.offsetY)
-    ]), [props.onClick, scaleX, scaleY])
 
     const handleLearningRateDrag = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         const float = parseFloat(e.target.value);
@@ -64,20 +74,20 @@ const LinearRegressionChart = (props: {
             <ChartXAxis
                 width={props.width}
                 height={props.height}
-                domain={scaleXExtent}
+                domain={x.extent}
                 padding={chartPadding}
             />
             <ChartYAxis 
                 width={props.width}
                 height={props.height}
-                domain={scaleYExtent}
+                domain={y.extent}
                 padding={chartPadding}
             />
-            {lineOfBestFit && <ChartLine path={lineOfBestFit(scaleXExtent)} strokeColor={"red"} strokeWidth={1} />}
-            {model.data.map(([x, y], i) => <ChartCircle
-                key={`${x}-${y}-${i}`}
-                transformX={scaleX(x)} 
-                transformY={scaleY(y)} 
+            {lineOfBestFit && <ChartLine path={lineOfBestFit(x.extent)} strokeColor={"red"} strokeWidth={1} />}
+            {model.data.map(([a, b], i) => <ChartCircle
+                key={`${a}-${b}-${i}`}
+                transformX={x.scale(a)} 
+                transformY={y.scale(b)} 
                 fill={"steelblue"}
                 radius={3} 
             />)}
@@ -89,7 +99,7 @@ const LinearRegressionChart = (props: {
         <HyperSlider
             title={"Learning Rate"}
             min={0.0001}
-            max={0.01} 
+            max={0.1} 
             step={0.0001} 
             value={hypers.learningRate} 
             onChange={handleLearningRateDrag}
@@ -97,7 +107,7 @@ const LinearRegressionChart = (props: {
         <HyperSlider 
             title={"Iterations"}
             min={0}
-            max={1000}
+            max={10_000}
             step={10}
             value={hypers.iterations}
             onChange={handleIterationsDrag}
@@ -113,7 +123,7 @@ export const Data = () => {
         [2, 2], 
         [3, 3]
     ]);
-    const [normalize, setNormalize] = useState(false);
+    const [normalized, setNormalized] = useState(false);
 
     return <ContentContainer>
         <div className={"operations"}>
@@ -123,7 +133,7 @@ export const Data = () => {
                     addData([x, y]);
                 }
             }} />
-            <Checkbox text={"Normalize"} state={normalize} setState={setNormalize} />
+            <Checkbox text={"Normalize"} state={normalized} setState={setNormalized} />
         </div>
         <ChartContainer>
             {(width) => <LinearRegressionChart 
@@ -131,7 +141,7 @@ export const Data = () => {
                 onClick={addData} 
                 width={width} 
                 height={250} 
-                normalize={normalize ? "unit" : "none"} 
+                normalized={normalized} 
             />}
         </ChartContainer>
     </ContentContainer>

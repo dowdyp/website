@@ -11,8 +11,8 @@ export const Checkbox = (props: {
             type={"checkbox"} 
             name={props.text} 
             checked={props.state}
-            aria-label={props.text} 
             onChange={() => props.setState(s => !s)}
+            aria-label={props.text}
             disabled={props.disabled}
         />
         <span>{props.text}</span>
