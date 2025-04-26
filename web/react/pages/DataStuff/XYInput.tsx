@@ -1,34 +1,34 @@
 import { SvgIcon } from "@react/components/SvgElem";
 import { ChangeEvent, useCallback, useState } from "react";
 import plus from "@svgs/plus.svg";
+import { isUndefined } from "@util/Undefined";
 
 type Coordinates = {
-    x: string,
-    y: string
+    x: number,
+    y: number
 }
 
 const coordinatesPartial = {
-    x: "",
-    y: ""
-} satisfies Coordinates
-const validNumber = /^-?(\d+)?\.?(\d+)?$/;
+} satisfies Partial<Coordinates>
+const validNumber = /^-?(\d+)?\.?(\d+)?$/; // keeping this here for fun
+const trySetNumber = (cb: (n: number) => void) => (s: string) => {
+    const intermediate = Number(s);
+    const allValid = validNumber.test(s)
+        && isNaN(intermediate)
+        && isFinite(intermediate)
+    if(allValid) cb(intermediate);
+}
+
 export const XYInput = (props: {
     onClick: (coords?: Coordinates) => void;
 }) => {
-    const [coords, setCoords] = useState<Coordinates>(coordinatesPartial);
-    const setX = useCallback((s: string) => {
-        const isValid = validNumber.test(s);
-        if(isValid) {
-            setCoords(c => ({ ...c, x: s }))
-        }
-    }, [])
-
-    const setY = useCallback((s: string) => {
-        const isValid = validNumber.test(s);
-        if(isValid) {
-            setCoords(c => ({ ...c, y: s }))
-        }
-    }, [])
+    const [coords, setCoords] = useState<Partial<Coordinates>>(coordinatesPartial);
+    const [hasError, setHasError] = useState({
+        x: false,
+        y: false,
+    });
+    const setX = trySetNumber((n) => setCoords(c => ({ ...c, x: n })))
+    const setY = trySetNumber((n) => setCoords(c => ({ ...c, y: n })))
 
     const onChange = (setFn: (s: string) => void) => (e: ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
@@ -36,13 +36,13 @@ export const XYInput = (props: {
     }
 
     const handleClick = () => {
-        const newCoordinate = (coords.x && coords.y) ? coords : undefined;
+        const newCoordinate: Coordinates | undefined = (!isUndefined(coords.x) && !isUndefined(coords.y)) ? coords as Coordinates : undefined;
         props.onClick(newCoordinate)
     }
 
     return (<div className="xy-input">
-        <input placeholder={"X"} value={coords?.x} onChange={onChange(setX)}/>
-        <input placeholder={"Y"} value={coords?.y} onChange={onChange(setY)}/>
+        <input className={hasError.x ? "error" : ""} placeholder={"X"} value={coords?.x} onChange={onChange(setX)}/>
+        <input className={hasError.y ? "error" : ""} placeholder={"Y"} value={coords?.y} onChange={onChange(setY)}/>
         <button onClick={handleClick}><SvgIcon src={plus} size="xs"/></button>
     </div>)
 }

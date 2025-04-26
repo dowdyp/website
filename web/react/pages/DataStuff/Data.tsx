@@ -3,7 +3,7 @@ import * as d3 from "d3";
 import { LinearRegression, Hyperparameters, NormalizeFn } from "@ml/LinearRegression";
 import { Tuple } from "@util/Arb";
 import { XYInput } from "./XYInput";
-import { Coordinate, useMutableChartData } from "@util/useChartData";
+import { Coordinates, useMutableChartData } from "@util/useChartData";
 import { ChartPadding, useCartesianScale } from "@util/Scale";
 import { HyperSlider } from "./HyperparameterSlider";
 import { ContentContainer } from "@react/components/chrome/ContentContainer";
@@ -24,7 +24,7 @@ const chartPadding = {
 
 const LinearRegressionChart = (props: {
     data: Tuple<number>[];
-    onClick: (c: Coordinate) => void;
+    onClick: (c: Coordinates) => void;
     width: number;
     height: number;
     normalized: boolean
@@ -112,7 +112,7 @@ const LinearRegressionChart = (props: {
             value={hypers.iterations}
             onChange={handleIterationsDrag}
         />
-        <ModelErrorAndWarning model={model} /> 
+        <ModelErrorAndWarning model={model} />
     </div>
 }
 
@@ -128,10 +128,7 @@ export const Data = () => {
     return <ContentContainer>
         <div className={"operations"}>
             <XYInput onClick={(coord) => {
-                if(coord) {
-                    const x = parseFloat(coord.x), y = parseFloat(coord.y);
-                    addData([x, y]);
-                }
+                if(coord) addData([coord.x, coord.y])
             }} />
             <Checkbox text={"Normalize"} state={normalized} setState={setNormalized} />
         </div>
