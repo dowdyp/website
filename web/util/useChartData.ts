@@ -6,7 +6,7 @@ export type Coordinates = Tuple<number>
 export const useMutableChartData = (startingPoints: Coordinates[] = []) => {
     const [points, setPoints] = useState<Tuple<number>[]>(startingPoints);
 
-    const addPoint = useCallback((newPoint: Coordinates) => setPoints((a) => [...a, newPoint]), [points]);
+    const addPoint = useCallback((newPoint: Coordinates) => setPoints((a) => [...a, newPoint]), [setPoints]);
 
     return [points, addPoint] as const
 }
