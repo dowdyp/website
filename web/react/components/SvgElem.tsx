@@ -2,7 +2,7 @@ import React, { HTMLAttributeAnchorTarget } from "react";
 
 export type SvgProps = {
     src: SvgElement;
-    size: "sm" | "md" | "lg"
+    size: "xs" | "sm" | "md" | "lg"
 }
 
 export const SvgIcon = (props: SvgProps) => (

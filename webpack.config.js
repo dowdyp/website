@@ -20,7 +20,7 @@ function htmlWebpackPlugin(arr, path) {
         meta: {
             charset: "utf-8",
             viewport: "width=device-width; initial-scale=1",
-            description: `Parker Dowdy - experience, ramblings, and more(eventually)`
+            description: `ramblings and more(eventually)`
         }
     }));
 }
@@ -45,6 +45,7 @@ logger.info("Is production:", isProd)
 module.exports = {
     mode: config.nodeEnv,
     entry: './web/index.tsx',
+    devtool: "source-map",
     output: {
         filename: 'bundle.[contenthash].js',
         path: path.resolve(__dirname, 'dist'),
@@ -64,6 +65,7 @@ module.exports = {
             "@util": path.resolve(__dirname, "web/util/"),
             "@react": path.resolve(__dirname, "web/react/"),
             "@styles": path.resolve(__dirname, "web/stylesheets/"),
+            "@ml": path.resolve(__dirname, "web/ml/")
         }
     },
     module: {
@@ -79,7 +81,10 @@ module.exports = {
                 {
                     loader: "sass-loader",
                     options: {
-                        implementation: require("sass")
+                        implementation: require("sass"),
+                        sassOptions: {
+                            loadPaths: [path.resolve(__dirname, "web", "stylesheets")],
+                        }
                     }
                 }
             ],
