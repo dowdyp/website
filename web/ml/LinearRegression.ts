@@ -44,7 +44,7 @@ export class LinearRegression extends WithErrorAndWarning {
         this._iterations = updatedIterations
     }
 
-    // Predicts the y value for a given x value based on current weigh and bias
+    // Predicts a value with current model
     predict = (independant: number) => this._weight * independant + this._bias;
 
     /**
