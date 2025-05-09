@@ -1,8 +1,0 @@
-<svg class="chevrons-svg" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 10">
-    <g>
-        <path id="1" d="M3 0 7 5 3 10H0L4 5 0 0Z" fill="#2A9D8F"/>
-        <path id="2" d="M4 0 6 0 10 5 6 10 3 10 7 5 3 0Z" fill="#E9C46A"/>
-        <path id="3" d="M6 0 9 0 13 5 9 10 6 10 10 5 6 0Z" fill="#F4A261"/>
-        <path id="4" d="M9 0 12 0 16 5 12 10 9 10 13 5 9 0" fill="#E76F51"/>
-    </g>
-</svg>

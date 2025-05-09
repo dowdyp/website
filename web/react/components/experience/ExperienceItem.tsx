@@ -12,26 +12,13 @@ const getMonthName = (d: Date) => shortMonths[d.getMonth()];
 const ExperienceStartAndEnd = (props: ExpSEProps) => 
     <span className="start-and-end">{getMonthName(props.startDate)} {props.startDate.getFullYear()} to {getMonthName(props.endDate)} {props.endDate.getFullYear()}</span>
 
-type TechIconWithRoute = {
-    src: SvgElement,
-    href: string;
-    title: string;
-}
-
-const Technology = (props: TechIconWithRoute) => (
-    <SvgAnchor
-        size="md" 
-        target="_blank"
-        {...props}
-    />
-)
-
-type BulletTechItemProps = {
+type LibraryItemProps = {
     src: SvgElement,
     href: string,
     title: string,
 }
-const LibraryAnchor = (props: BulletTechItemProps) => {
+
+const LibraryAnchor = (props: LibraryItemProps) => {
     return <a 
         href={props.href} 
         target="_blank" 
@@ -49,28 +36,15 @@ const LibraryAnchor = (props: BulletTechItemProps) => {
 }
 
 export type BulletPointProps = {
-    description: string;
-    libraries: BulletTechItemProps[];
+    libraries: LibraryItemProps[];
 }
-const BulletPoint = (props: BulletPointProps) => (
-    <div className="content">
-        <div className="icon">
-            <Bullet width={12} height={12} />
-        </div>
-        <span>{props.description}</span>
-        <div className="libraries">
-            {props.libraries.map((lib) => <LibraryAnchor key={lib.title} {...lib} />)}
-        </div>
-    </div>
-)
 
 export type ExpItem = {
     image: ImageSrc,
     alt: string,
     company: string,
     title: string,
-    bullets: BulletPointProps[],
-    technologies: TechIconWithRoute[]
+    technologies: LibraryItemProps[]
 } & ExpSEProps;
 
 export const ExperienceItem = (props: {
@@ -82,15 +56,15 @@ export const ExperienceItem = (props: {
                 <img alt={props.item.alt} src={props.item.image} />
                 <div>
                     <h4 className="title">{props.item.title}</h4>
-                    <ExperienceStartAndEnd startDate={props.item.startDate} endDate={props.item.endDate} />
+                    <span className="company">{props.item.company}</span>
                 </div>
             </div>
-            <div className="exp-technologies">
-                {props.item.technologies.map((t) => <Technology key={t.title} {...t} />)}
+            <div className="exp-timeframe">
+                <ExperienceStartAndEnd startDate={props.item.startDate} endDate={props.item.endDate} />
             </div>
         </div>
-        <div className="exp-bullets">
-            {props.item.bullets.map((b) => <BulletPoint key={b.description} {...b}/>)}
+        <div className="exp-libs">
+            {props.item.technologies.map((lib) => <LibraryAnchor key={lib.title} {...lib} />)}
         </div>
     </div>
 )

@@ -21,7 +21,7 @@ export const Router = () => {
       <RouteBlock>
         <Route element={<HomepageChrome />}>
           <Route path={routes.experience} element={<Experience />} />
-          <Route path={routes.ramblings} element={<Ramblings />} />
+          {/* <Route path={routes.ramblings} element={<Ramblings />} /> */}
           <Route path={routes.plinko} element={<Data />} />
         </Route>
         <Route path={routes.wildcard} element={<FourOhFour />} />
